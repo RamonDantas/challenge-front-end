@@ -1,25 +1,30 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
-import { isAutehenticated } from "./auth";
-
-const Login = () => {
-  return <h1>login</h1>;
-};
-const Home = () => {
-  return <h1>autenticado</h1>;
-};
+import Login from "./pages/login";
+import Home from "./pages/home";
 
 const AppRoutes = () => {
+  const stateAuth = useSelector((state) => state.auth);
+  const [isAutehenticated, setIsAutehenticated] = useState(false);
+  useEffect(() => {
+    if (stateAuth.token === "") {
+      setIsAutehenticated(false);
+    } else {
+      setIsAutehenticated(true);
+    }
+  }, [stateAuth]);
+
   return (
     <BrowserRouter>
       <Routes>
-        {isAutehenticated() ? (
+        {isAutehenticated ? (
           <Route path="/home" element={<Home />} />
         ) : (
           <Route path="*" element={<Navigate to="/login" replace />} />
         )}
         <Route path="/" element={<Login />} />
-        <Route path="/Login" element={<Login />} />
+        <Route path="/login" element={<Login />} />
       </Routes>
     </BrowserRouter>
   );
