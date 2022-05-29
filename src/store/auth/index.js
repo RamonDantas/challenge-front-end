@@ -7,22 +7,18 @@ const initialState = {
   },
   token: "",
 };
+
 export const authSlice = createSlice({
   name: "auth",
-  initialState: {
-    user: {
-      name: "",
-      email: "",
-    },
-    token: "",
-  },
+  initialState: initialState,
   reducers: {
     setAuth: (state, action) => {
       state.user = action.payload.user;
       state.token = action.payload.token;
     },
     logoff: (state) => {
-      state = initialState;
+      state.user = initialState.user;
+      state.token = initialState.token;
     },
   },
 });

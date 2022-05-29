@@ -1,24 +1,20 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+const initialState = {
+  project: [],
+};
+
 export const projectSlice = createSlice({
   name: "project",
-  initialState: {
-    value: 0,
-  },
+  initialState: initialState,
   reducers: {
-    increment: (state) => {
-      state.value += 1;
-    },
-    decrement: (state) => {
-      state.value -= 1;
-    },
-    incrementByAmount: (state, action) => {
-      state.value += action.payload;
+    setProject: (state, action) => {
+      state = action.payload;
     },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { increment, decrement, incrementByAmount } = projectSlice.actions;
+export const { setProject } = projectSlice.actions;
 
 export default projectSlice.reducer;

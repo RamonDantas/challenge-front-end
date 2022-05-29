@@ -29,25 +29,29 @@ const SignIn = () => {
       password: form.get("password"),
     };
     if (register) {
-      createUser(data).then((response) => {
-        const { user, token } = response.data;
-        const authData = {
-          user,
-          token,
-        };
-        dispatch(setAuth(authData));
-        navigate("/home");
-      });
+      createUser(data)
+        .then((response) => {
+          const { user, token } = response.data;
+          const authData = {
+            user,
+            token,
+          };
+          dispatch(setAuth(authData));
+          navigate("/home");
+        })
+        .catch((e) => alert(e));
     } else {
-      login(data).then((response) => {
-        const { user, token } = response.data;
-        const authData = {
-          user,
-          token,
-        };
-        dispatch(setAuth(authData));
-        navigate("/home");
-      });
+      login(data)
+        .then((response) => {
+          const { user, token } = response.data;
+          const authData = {
+            user,
+            token,
+          };
+          dispatch(setAuth(authData));
+          navigate("/home");
+        })
+        .catch((e) => alert(e));
     }
   };
 
