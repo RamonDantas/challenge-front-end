@@ -9,6 +9,7 @@ import Checkbox from "@mui/material/Checkbox";
 import IconButton from "@mui/material/IconButton";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import Moment from "react-moment";
+import moment from "moment";
 import { tasksDelete } from "../../services/task";
 import { setProject } from "../../store/project";
 
@@ -35,6 +36,17 @@ export default function TaskItem({ project, type, checked, setChecked }) {
       .catch((e) => alert(e));
   };
 
+  const handleColorList = (task) => {
+    if (task.completed) {
+      return "";
+    }
+    const dataAtual = moment();
+    const dataVencimento = moment(task.finishedDate);
+    if (dataAtual.isAfter(dataVencimento, "day")) {
+      return "#ed9595";
+    }
+  };
+
   return (
     <List sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}>
       {project.tasks.map((task) => {
@@ -58,6 +70,7 @@ export default function TaskItem({ project, type, checked, setChecked }) {
                 </IconButton>
               }
               disablePadding
+              style={{ background: handleColorList(task) }}
             >
               <ListItemButton
                 role={undefined}
