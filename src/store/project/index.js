@@ -9,12 +9,15 @@ export const projectSlice = createSlice({
   initialState: initialState,
   reducers: {
     setProject: (state, action) => {
-      state = action.payload;
+      state.project = action.payload.project;
+    },
+    clearProject: (state) => {
+      state.project = [];
     },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { setProject } = projectSlice.actions;
+export const { setProject, clearProject } = projectSlice.actions;
 
 export default projectSlice.reducer;

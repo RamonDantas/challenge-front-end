@@ -7,6 +7,7 @@ import MenuItem from "@mui/material/MenuItem";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import { logoff } from "../../store/auth";
+import { clearProject } from "../../store/project";
 
 const StyledMenu = styled((props) => (
   <Menu
@@ -86,7 +87,14 @@ export default function CustomizedMenus() {
         open={open}
         onClose={handleClose}
       >
-        <MenuItem onClick={() => dispatch(logoff())} disableRipple>
+        <MenuItem
+          onClick={() => {
+            localStorage.clear();
+            dispatch(logoff());
+            dispatch(clearProject());
+          }}
+          disableRipple
+        >
           <MoreHorizIcon />
           Logoff
         </MenuItem>

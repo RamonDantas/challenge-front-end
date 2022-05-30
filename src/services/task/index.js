@@ -1,17 +1,23 @@
 import axios from "axios";
 
-const userService = axios.create({
+const tasksService = axios.create({
   baseURL: "http://localhost:3001",
 });
 
+tasksService.interceptors.request.use(async (request) => {
+  const token = localStorage.getItem("token");
+  request.headers.common.Authorization = `Bearer ${token}`;
+  return request;
+});
+
 export const tasksCreate = (data) => {
-  return userService.post("/tasks", data);
+  return tasksService.post("/tasks", data);
 };
 
 export const tasksUpdate = (data) => {
-  return userService.put(`/tasks/${data._id}`, data);
+  return tasksService.put(`/tasks/${data._id}`, data);
 };
 
 export const tasksDelete = (data) => {
-  return userService.delete(`/tasks/${data._id}`);
+  return tasksService.delete(`/tasks/${data}`);
 };

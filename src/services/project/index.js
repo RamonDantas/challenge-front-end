@@ -1,21 +1,27 @@
 import axios from "axios";
 
-const userService = axios.create({
+const projectService = axios.create({
   baseURL: "http://localhost:3001",
 });
 
+projectService.interceptors.request.use(async (request) => {
+  const token = localStorage.getItem("token");
+  request.headers.common.Authorization = `Bearer ${token}`;
+  return request;
+});
+
 export const projectsList = (data) => {
-  return userService.get("/projects");
+  return projectService.get("/projects");
 };
 
 export const projectsCreate = (data) => {
-  return userService.post("/projects", data);
+  return projectService.post("/projects", data);
 };
 
 export const projectsUpdate = (data) => {
-  return userService.put(`/projects/${data._id}`, data);
+  return projectService.put(`/projects/${data._id}`, data);
 };
 
 export const projectsDelete = (data) => {
-  return userService.delete(`/projects/${data._id}`);
+  return projectService.delete(`/projects/${data}`, {});
 };

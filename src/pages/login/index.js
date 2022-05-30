@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { createUser, login } from "../../services/auth";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -20,6 +20,8 @@ const SignIn = () => {
   const navigate = useNavigate();
   const [register, setRegister] = useState(false);
   const [textRegister, setTextRegister] = useState("Sign in");
+
+  const stateAuth = useSelector((state) => state.auth);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -49,6 +51,8 @@ const SignIn = () => {
             token,
           };
           dispatch(setAuth(authData));
+          localStorage.setItem("token", token);
+          localStorage.setItem("user", JSON.stringify(user));
           navigate("/home");
         })
         .catch((e) => alert(e));
@@ -62,6 +66,12 @@ const SignIn = () => {
       setTextRegister("Sign in");
     }
   }, [register]);
+
+  useEffect(() => {
+    if (stateAuth.token !== "") {
+      navigate("/home");
+    }
+  }, [stateAuth]);
 
   return (
     <ThemeProvider theme={theme}>
