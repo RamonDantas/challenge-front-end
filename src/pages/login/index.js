@@ -39,6 +39,8 @@ const SignIn = () => {
             token,
           };
           dispatch(setAuth(authData));
+          localStorage.setItem("token", token);
+          localStorage.setItem("user", JSON.stringify(user));
           navigate("/home");
         })
         .catch((e) => alert(e));

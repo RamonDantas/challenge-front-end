@@ -18,6 +18,6 @@ export const projectSlice = createSlice({
 });
 
 // Action creators are generated for each case reducer function
-export const { setProject, clearProject } = projectSlice.actions;
+export const { setProject, clearProject, setCheckTask } = projectSlice.actions;
 
 export default projectSlice.reducer;

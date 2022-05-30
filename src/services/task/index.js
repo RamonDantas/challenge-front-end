@@ -15,7 +15,7 @@ export const tasksCreate = (data) => {
 };
 
 export const tasksUpdate = (data) => {
-  return tasksService.put(`/tasks/${data._id}`, data);
+  return tasksService.put(`/tasks`, data);
 };
 
 export const tasksDelete = (data) => {
