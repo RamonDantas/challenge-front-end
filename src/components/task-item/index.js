@@ -75,6 +75,7 @@ export default function TaskItem({ project, type, checked, setChecked }) {
               <ListItemButton
                 role={undefined}
                 onClick={handleToggle(task._id)}
+                disabled={task.completed}
                 dense
               >
                 <ListItemIcon>
